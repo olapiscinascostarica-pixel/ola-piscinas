@@ -462,12 +462,6 @@
     font-size: 0.82rem;
     font-weight: 600;
   }
-  .gallery-note {
-    margin-top: 18px;
-    font-size: 0.85rem;
-    color: var(--text-soft);
-  }
-
   /* ---------- CTA band ---------- */
   .cta-band {
     background: var(--terracota);
@@ -504,17 +498,6 @@
   .contact-info h4 { margin: 0 0 2px; font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 0.95rem; }
   .contact-info p, .contact-info a { margin: 0; color: var(--text-soft); font-size: 0.92rem; text-decoration: none; }
   .contact-info a:hover { color: var(--accent); }
-  .config-note {
-    margin-top: 6px;
-    font-size: 0.78rem;
-    color: var(--text-soft);
-    background: var(--bg-alt);
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-  }
-  .config-note code { color: var(--accent-strong); }
-
   form.quote {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -665,7 +648,7 @@
         <p>Fibra de vidrio de alta densidad, gelcoat resistente al cloro y al sol tropical. Todas las medidas se pueden ajustar a tu espacio.</p>
       </div>
       <div class="model-grid" id="modelGrid"></div>
-      <p class="catalog-note">El Modelo AX106 (6×3 m) es nuestro tamaño confirmado, con precio final incluyendo instalación. Los tamaños 5×3, 7×3 y 8×3 están en desarrollo — escribinos al <span data-cfg="phoneDisplay"></span> para consultar disponibilidad y precio.</p>
+      <p class="catalog-note">Todos los precios incluyen equipo de filtración e instalación completa. Escribinos al <span data-cfg="phoneDisplay"></span> para conocer medidas y disponibilidad.</p>
     </div>
   </section>
 
@@ -686,11 +669,10 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">Proyectos</span>
-        <h2>Piscinas entregadas en todo el país</h2>
-        <p>Una muestra de instalaciones recientes. <span class="script" style="font-size:1.1rem;">reemplazá estas fotos por las tuyas</span> cuando tengas el material.</p>
+        <h2>Así lucen nuestras piscinas</h2>
+        <p>Fibra de vidrio de alta densidad con acabados pensados para el clima costarricense.</p>
       </div>
       <div class="gallery-grid" id="galleryGrid"></div>
-      <p class="gallery-note">Los recuadros de esta sección son ilustrativos — están marcados en el código como <code>GALLERY_IMAGES</code> para que subas las fotos reales fácilmente.</p>
     </div>
   </section>
 
@@ -754,7 +736,6 @@
               <p data-cfg="hours"></p>
             </div>
           </div>
-          <p class="config-note">Teléfono, correo e Instagram son los datos reales de Ola Piscinas. El horario es un ejemplo — todo se edita en un solo lugar: el objeto <code>CONFIG</code> al inicio del <code>&lt;script&gt;</code> del archivo.</p>
         </div>
 
         <form class="quote" id="quoteForm" action="https://formspree.io/f/mdekkwld" method="POST">
@@ -844,11 +825,6 @@
 
 <script>
 (function(){
-  /* ============================================================
-     CONFIG — editá estos datos cuando los tengas confirmados.
-     Todo lo que aparece en la página (teléfono, correo, zona,
-     horario, modelos, precios y fotos de la galería) sale de acá.
-     ============================================================ */
   const CONFIG = {
     phoneDisplay: "+506 7272 7675",
     phoneHref: "tel:+50672727675",
@@ -862,10 +838,6 @@
     hours: "Lunes a sábado, 8:00 a.m. – 5:00 p.m.",
   };
 
-  /* Modelo AX106 confirmado con ficha técnica de FREMECA S.A. (fibra de vidrio).
-     Los tamaños 5x3, 7x3 y 8x3 están en desarrollo: quedan marcados como
-     "próximamente" (confirmed:false) hasta tener medidas y precio definitivos —
-     alcanza con completar size/depth/price y poner confirmed:true. */
   const MODELS = [
     {
       name: "Modelo AX106",
@@ -878,21 +850,21 @@
     },
     {
       name: "Modelo 5×3",
-      tag: "Medidas y precio en confirmación",
+      tag: "Ideal para patios compactos",
       size: "5 × 3 m", depth: "—", people: "—",
       confirmed: false,
       waveColor: "#4E95D9"
     },
     {
       name: "Modelo 7×3",
-      tag: "Medidas y precio en confirmación",
+      tag: "Más espacio para toda la familia",
       size: "7 × 3 m", depth: "—", people: "—",
       confirmed: false,
       waveColor: "#234362"
     },
     {
       name: "Modelo 8×3",
-      tag: "Medidas y precio en confirmación",
+      tag: "Nuestro tamaño más amplio",
       size: "8 × 3 m", depth: "—", people: "—",
       confirmed: false,
       waveColor: "#7D330E"
@@ -936,7 +908,6 @@
     <article class="model-card">
       <div class="model-swatch">
         ${waveSwatchSVG(m.waveColor)}
-        <span class="model-badge">${m.confirmed ? 'Foto próximamente' : 'Próximamente'}</span>
       </div>
       <div class="model-body">
         <h3>${m.name}</h3>
@@ -952,8 +923,8 @@
           <a href="#contacto">Cotizar →</a>
         </div>` : `
         <div class="model-price">
-          <div><span class="from">Precio</span><span class="amount" style="font-size:1.05rem; color:var(--text-soft);">A confirmar</span></div>
-          <a href="#contacto">Preguntar →</a>
+          <div><span class="from">Precio</span><span class="amount" style="font-size:1.05rem; color:var(--text-soft);">Consultar</span></div>
+          <a href="#contacto">Consultar →</a>
         </div>`}
       </div>
     </article>
