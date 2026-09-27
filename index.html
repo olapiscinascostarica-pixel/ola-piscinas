@@ -619,8 +619,8 @@
   <section class="hero">
     <div class="hero-inner">
       <span class="eyebrow">Piscinas de fibra de vidrio · Costa Rica</span>
-      <h1>Tu propio <span class="accent">Pacífico</span>,<br>a un paso de la sala</h1>
-      <p class="lede">Diseñamos e instalamos piscinas de fibra de vidrio pensadas para el calor tico: entrega rápida, acabados durables y un proceso acompañado de principio a fin.</p>
+      <h1>Tu propio <span class="accent">Pacífico</span>,<br>en el patio de tu casa</h1>
+      <p class="lede">Diseñamos e instalamos piscinas de fibra de vidrio en todo Costa Rica, con acabados durables y un equipo a cargo de principio a fin.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#contacto">Pedí tu cotización</a>
         <a class="btn btn-ghost" href="#modelos">Ver modelos</a>
@@ -629,6 +629,7 @@
         <div class="stat"><b>7–10 días</b><span>instalación promedio</span></div>
         <div class="stat"><b>5 años</b><span>garantía de estructura</span></div>
       </div>
+      <p style="font-size:0.78rem; color:var(--text-soft); margin-top:-6px;">Alcance y condiciones de garantía sujetos a consulta.</p>
     </div>
     <div class="hero-waves wave-anim">
       <svg viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -643,11 +644,11 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">Catálogo</span>
-        <h2>Un modelo para cada patio</h2>
-        <p>Fibra de vidrio de alta densidad, gelcoat resistente al cloro y al sol tropical. Todas las medidas se pueden ajustar a tu espacio.</p>
+        <h2>Modelos y precios</h2>
+        <p>Fibra de vidrio de alta densidad, con gelcoat resistente al cloro y al sol tropical.</p>
       </div>
       <div class="model-grid" id="modelGrid"></div>
-      <p class="catalog-note">Todos los precios incluyen equipo de filtración e instalación completa. Escribinos al <span data-cfg="phoneDisplay"></span> para conocer medidas y disponibilidad.</p>
+      <p class="catalog-note">Precios publicados en dólares. No incluyen impuestos ni flete. Instalación y equipo de filtración incluidos.</p>
     </div>
   </section>
 
@@ -656,8 +657,8 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">Cómo funciona</span>
-        <h2>De la visita a la primera zambullida</h2>
-        <p>Cuatro pasos, un solo equipo a cargo durante todo el proyecto.</p>
+        <h2>Nuestro proceso de instalación</h2>
+        <p>Un mismo equipo a cargo de principio a fin, en cuatro etapas.</p>
       </div>
       <div class="process-list" id="processList"></div>
     </div>
@@ -679,9 +680,9 @@
   <section>
     <div class="wrap">
       <div class="cta-band reveal">
-        <span class="eyebrow" style="color:#F6D9C4;">¿Listo para tirarte al agua?</span>
+        <span class="eyebrow" style="color:#F6D9C4;">Siguiente paso</span>
         <h2>Coordinemos una visita técnica sin costo</h2>
-        <p>Contános el tamaño del patio y el modelo que te gusta — te respondemos con disponibilidad y precio en menos de 24 horas hábiles.</p>
+        <p>Contános el tamaño del patio y el modelo que te interesa. Te respondemos con disponibilidad y precio en menos de 24 horas hábiles.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="#contacto">Escribir por WhatsApp</a>
           <a class="btn btn-ghost" style="border-color:rgba(255,255,255,0.5); color:#fff;" href="#contacto">Ir al formulario</a>
@@ -839,34 +840,40 @@
 
   const MODELS = [
     {
-      name: "Modelo AX106",
-      tag: "Con escalera de ingreso y banca integrada",
-      size: "6 × 3 m", depth: "1.22 m", people: "6–8",
-      price: "$16,900",
-      code: "AX106",
-      confirmed: true,
-      waveColor: "#46B1E1"
+      name: "Modelo 4×3",
+      tag: "Piscina de fibra de vidrio",
+      size: "4 × 3 m",
+      price: "$15,300",
+      waveColor: "#7D330E"
     },
     {
       name: "Modelo 5×3",
-      tag: "Ideal para patios compactos",
-      size: "5 × 3 m", depth: "—", people: "—",
-      confirmed: false,
+      tag: "Piscina de fibra de vidrio",
+      size: "5 × 3 m",
+      price: "$15,800",
       waveColor: "#4E95D9"
     },
     {
+      name: "Modelo AX106",
+      tag: "Con escalera de ingreso y banca integrada",
+      size: "6 × 3 m", depth: "1.22 m", people: "6–8",
+      price: "$17,100",
+      code: "AX106",
+      waveColor: "#46B1E1"
+    },
+    {
       name: "Modelo 7×3",
-      tag: "Más espacio para toda la familia",
-      size: "7 × 3 m", depth: "—", people: "—",
-      confirmed: false,
+      tag: "Piscina de fibra de vidrio",
+      size: "7 × 3 m",
+      price: "$18,600",
       waveColor: "#234362"
     },
     {
       name: "Modelo 8×3",
-      tag: "Nuestro tamaño más amplio",
-      size: "8 × 3 m", depth: "—", people: "—",
-      confirmed: false,
-      waveColor: "#7D330E"
+      tag: "Piscina de fibra de vidrio",
+      size: "8 × 3 m",
+      price: "$20,000",
+      waveColor: "#C04F15"
     }
   ];
 
@@ -878,27 +885,27 @@
   ];
 
   const GALLERY_IMAGES = [
-    { label: "Residencial · Tamarindo", color: "#46B1E1" },
-    { label: "Residencial · Santa Ana", color: "#4E95D9" },
-    { label: "Villa · Papagayo", color: "#C04F15" },
-    { label: "Residencial · Atenas", color: "#234362" },
-    { label: "Villa · Sámara", color: "#7D330E" },
-    { label: "Residencial · Escazú", color: "#46B1E1" }
+    { label: "Acabado gelcoat blanco", color: "#46B1E1" },
+    { label: "Escalera de ingreso", color: "#4E95D9" },
+    { label: "Banca integrada", color: "#C04F15" },
+    { label: "Borde perimetral", color: "#234362" },
+    { label: "Sistema de filtración", color: "#7D330E" },
+    { label: "Vista general", color: "#46B1E1" }
   ];
 
   function waveSwatchSVG(color){
     return `<svg viewBox="0 0 300 168" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <rect width="300" height="168" fill="${color}" opacity="0.14"/>
-      <path d="M-20 100 C 30 70,70 70,120 100 C 170 130,210 130,260 100 C 300 80,320 80,320 80 L 320 168 L -20 168 Z" fill="${color}" opacity="0.5"/>
-      <path d="M-20 130 C 30 105,70 105,120 130 C 170 155,210 155,260 130 C 300 112,320 112,320 112 L 320 168 L -20 168 Z" fill="${color}"/>
+      <rect width="300" height="168" fill="${color}" opacity="0.08"/>
+      <path d="M-20 138 C 40 122,80 122,140 138 C 200 154,240 154,320 138" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.55"/>
+      <path d="M-20 150 C 40 136,80 136,140 150 C 200 164,240 164,320 150" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.3"/>
     </svg>`;
   }
 
   function galleryTileSVG(color){
     return `<svg viewBox="0 0 300 225" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <rect width="300" height="225" fill="${color}" opacity="0.85"/>
-      <path d="M0 150 C 40 130,80 130,120 150 C 160 170,200 170,240 150 C 270 136,300 136,300 136 L 300 225 L 0 225 Z" fill="#EDCEBD" opacity="0.35"/>
-      <path d="M0 175 C 40 158,80 158,120 175 C 160 192,200 192,240 175 C 270 163,300 163,300 163 L 300 225 L 0 225 Z" fill="#232323" opacity="0.18"/>
+      <rect width="300" height="225" fill="${color}" opacity="0.1"/>
+      <path d="M-20 180 C 40 164,80 164,140 180 C 200 196,240 196,320 180" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <path d="M-20 195 C 40 181,80 181,140 195 C 200 209,240 209,320 195" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.28"/>
     </svg>`;
   }
 
@@ -913,18 +920,13 @@
         <p class="model-tag">${m.tag}</p>
         <div class="model-specs">
           <span><b>${m.size}</b> medidas</span>
-          <span><b>${m.depth}</b> profundidad</span>
-          <span><b>${m.people}</b> personas</span>
+          ${m.depth ? `<span><b>${m.depth}</b> profundidad</span>` : ''}
+          ${m.people ? `<span><b>${m.people}</b> personas</span>` : ''}
         </div>
-        ${m.confirmed ? `
         <div class="model-price">
-          <div><span class="from">Precio final</span><span class="amount">${m.price}</span></div>
+          <div><span class="from">Precio</span><span class="amount">${m.price}</span></div>
           <a href="#contacto">Cotizar →</a>
-        </div>` : `
-        <div class="model-price">
-          <div><span class="from">Precio</span><span class="amount" style="font-size:1.05rem; color:var(--text-soft);">Consultar</span></div>
-          <a href="#contacto">Consultar →</a>
-        </div>`}
+        </div>
       </div>
     </article>
   `).join('');
@@ -998,7 +1000,7 @@
         headers: { 'Accept': 'application/json' }
       });
       if (response.ok) {
-        formMsg.textContent = '¡Gracias! Te contactamos en menos de 24 horas hábiles.';
+        formMsg.textContent = 'Consulta enviada. Te contactamos en menos de 24 horas hábiles.';
         form.reset();
       } else {
         formMsg.style.color = '#C04F15';
