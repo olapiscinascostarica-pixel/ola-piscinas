@@ -234,6 +234,25 @@
   @media (min-width: 720px) { .nav-cta { display: inline-flex; } }
   .nav-links-desktop { display: none; }
   @media (min-width: 860px) { .nav-links-desktop { display: flex; } }
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-soft);
+  }
+  .lang-toggle button {
+    background: none;
+    border: none;
+    padding: 2px 3px;
+    font: inherit;
+    font-weight: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .lang-toggle button.active { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .lang-toggle span { color: var(--border); }
   .menu-btn {
     display: inline-flex;
     background: none;
@@ -401,6 +420,62 @@
     border-left: 3px solid var(--celeste);
     padding-left: 12px;
   }
+
+  /* ---------- Featured model ---------- */
+  .featured-band {
+    background: var(--azul-profundo);
+    color: #fff;
+    border-radius: 26px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 880px) { .featured-band { grid-template-columns: 0.95fr 1.05fr; } }
+  .featured-photo { aspect-ratio: 4/3; }
+  @media (min-width: 880px) { .featured-photo { aspect-ratio: auto; height: 100%; } }
+  .featured-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .featured-content { padding: clamp(28px, 4vw, 48px); display: grid; gap: 20px; align-content: start; }
+  .featured-eyebrow { font-family:'Poppins',sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--celeste); }
+  .featured-size { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .featured-size .num { font-family: 'Baloo 2', sans-serif; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1; }
+  .featured-size .name { font-family: 'Baloo 2', sans-serif; font-size: clamp(1.3rem, 2.6vw, 1.7rem); color: var(--celeste); }
+  .featured-desc { color: rgba(255,255,255,0.85); max-width: 46ch; margin: 0; }
+  .featured-feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.16); border-bottom: 1px solid rgba(255,255,255,0.16); }
+  .featured-feature-grid h4 { margin: 0 0 3px; font-family:'Poppins',sans-serif; font-weight: 700; font-size: 0.92rem; }
+  .featured-feature-grid p { margin: 0; font-size: 0.82rem; color: rgba(255,255,255,0.72); }
+  .featured-specs { font-size: 0.85rem; color: var(--celeste); font-weight: 600; }
+  .featured-includes { display: grid; gap: 8px; }
+  .featured-includes h5 { margin: 0 0 2px; font-family:'Baloo 2',sans-serif; font-size: 1.05rem; }
+  .featured-includes ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .featured-includes li { display: flex; gap: 8px; align-items: flex-start; font-size: 0.9rem; color: rgba(255,255,255,0.9); }
+  .featured-includes li svg { flex-shrink: 0; margin-top: 2px; stroke: var(--celeste); }
+  .featured-content .btn-primary { justify-self: start; }
+
+  /* ---------- Extras ---------- */
+  .extras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .extra-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+  .extra-card .icon {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: var(--bg-alt); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+  }
+  .extra-card .icon svg { stroke: var(--accent); }
+  .extra-card h4 { margin: 0; font-family:'Poppins',sans-serif; font-weight: 700; font-size: 1rem; }
+  .extra-card p { margin: 0; font-size: 0.87rem; color: var(--text-soft); }
+  .extras-note { margin-top: 20px; font-size: 0.85rem; color: var(--text-soft); }
 
   /* ---------- Process ---------- */
   .process-list {
@@ -594,23 +669,28 @@
       <span class="brand-name">OLA<small>PISCINAS</small></span>
     </a>
     <nav class="links nav-links-desktop">
-      <a href="#modelos">Modelos</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#galeria">Fabricación</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#modelos" data-i18n="nav_modelos">Modelos</a>
+      <a href="#proceso" data-i18n="nav_proceso">Proceso</a>
+      <a href="#galeria" data-i18n="nav_fabricacion">Fabricación</a>
+      <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
     </nav>
-    <div style="display:flex; align-items:center; gap:10px;">
-      <a class="btn btn-primary nav-cta" href="#contacto">Cotizar ahora</a>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div class="lang-toggle" id="langToggle">
+        <button type="button" data-lang="es">ES</button>
+        <span>/</span>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a class="btn btn-primary nav-cta" href="#contacto" data-i18n="nav_cta">Cotizar ahora</a>
       <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </div>
   <nav id="mobile-menu">
-    <a href="#modelos">Modelos</a>
-    <a href="#proceso">Proceso</a>
-    <a href="#galeria">Fabricación</a>
-    <a href="#contacto">Contacto</a>
+    <a href="#modelos" data-i18n="nav_modelos">Modelos</a>
+    <a href="#proceso" data-i18n="nav_proceso">Proceso</a>
+    <a href="#galeria" data-i18n="nav_fabricacion">Fabricación</a>
+    <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
   </nav>
 </header>
 
@@ -618,18 +698,18 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
-      <span class="eyebrow">Piscinas de fibra de vidrio · Costa Rica</span>
-      <h1>Tu propio <span class="accent">Pacífico</span>,<br>en el patio de tu casa</h1>
-      <p class="lede">Diseñamos e instalamos piscinas de fibra de vidrio en todo Costa Rica, con acabados durables y un equipo a cargo de principio a fin.</p>
+      <span class="eyebrow" data-i18n="hero_eyebrow">Piscinas de fibra de vidrio · Costa Rica</span>
+      <h1><span data-i18n="hero_h1_pre">Tu propio</span> <span class="accent" data-i18n="hero_h1_accent">Pacífico</span><span data-i18n="hero_h1_post">, en el patio de tu casa</span></h1>
+      <p class="lede" data-i18n="hero_lede">Diseñamos e instalamos piscinas de fibra de vidrio en todo Costa Rica, con acabados durables y un equipo a cargo de principio a fin.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#contacto">Pedí tu cotización</a>
-        <a class="btn btn-ghost" href="#modelos">Ver modelos</a>
+        <a class="btn btn-primary" href="#contacto" data-i18n="hero_cta_primary">Pedí tu cotización</a>
+        <a class="btn btn-ghost" href="#modelos" data-i18n="hero_cta_ghost">Ver modelos</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><b>7–10 días</b><span>instalación promedio</span></div>
-        <div class="stat"><b>5 años</b><span>garantía de estructura</span></div>
+        <div class="stat"><b>7–10 <span data-i18n="hero_stat1_unit">días</span></b><span data-i18n="hero_stat1_label">instalación promedio</span></div>
+        <div class="stat"><b>5 <span data-i18n="hero_stat2_unit">años</span></b><span data-i18n="hero_stat2_label">garantía de estructura</span></div>
       </div>
-      <p style="font-size:0.78rem; color:var(--text-soft); margin-top:-6px;">Alcance y condiciones de garantía sujetos a consulta.</p>
+      <p style="font-size:0.78rem; color:var(--text-soft); margin-top:-6px;" data-i18n="hero_guarantee_note">Alcance y condiciones de garantía sujetos a consulta.</p>
     </div>
     <div class="hero-waves wave-anim">
       <svg viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -639,38 +719,77 @@
     </div>
   </section>
 
+  <!-- MODELO DESTACADO -->
+  <section id="destacado">
+    <div class="wrap">
+      <div class="featured-band reveal">
+        <div class="featured-photo">
+          <img src="img/modelo-ax106.jpg" alt="Modelo Guanacaste 6x3" />
+        </div>
+        <div class="featured-content">
+          <span class="featured-eyebrow" data-i18n="featured_eyebrow">Modelo principal</span>
+          <div class="featured-size">
+            <span class="num">6×3</span>
+            <span class="name" data-i18n="featured_name">Modelo Guanacaste</span>
+          </div>
+          <p class="featured-desc" data-i18n="featured_desc">Un diseño funcional y elegante, con escalera de ingreso y banca integrada de fábrica.</p>
+          <div class="featured-feature-grid" id="featuredFeatures"></div>
+          <p class="featured-specs" data-i18n="featured_specs">Profundidad 1.22 m · Resistente al cloro y la sal</p>
+          <div class="featured-includes">
+            <h5 data-i18n="featured_includes_title">Incluye todo</h5>
+            <ul id="featuredIncludes"></ul>
+          </div>
+          <a class="btn btn-primary" href="#contacto" data-i18n="featured_cta">Cotizar este modelo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- MODELOS -->
   <section id="modelos">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Catálogo</span>
-        <h2>Modelos y precios</h2>
-        <p>Fibra de vidrio de alta densidad, con gelcoat resistente al cloro y al sol tropical.</p>
+        <span class="eyebrow" data-i18n="catalog_eyebrow">Catálogo</span>
+        <h2 data-i18n="catalog_title">Modelos y precios</h2>
+        <p data-i18n="catalog_subtitle">Fibra de vidrio de alta densidad, con gelcoat resistente al cloro y al sol tropical.</p>
       </div>
       <div class="model-grid" id="modelGrid"></div>
-      <p class="catalog-note">Precios publicados en dólares. No incluyen impuestos ni flete. Instalación y equipo de filtración incluidos.</p>
+      <p class="catalog-note" data-i18n="catalog_disclaimer">Precios publicados en dólares. No incluyen impuestos ni flete. Instalación y equipo de filtración incluidos.</p>
+    </div>
+  </section>
+
+  <!-- EXTRAS -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="extras_eyebrow">Extras opcionales</span>
+        <h2 data-i18n="extras_title">Personalizá tu piscina</h2>
+        <p data-i18n="extras_subtitle">Se cotizan por separado, según las características de tu proyecto.</p>
+      </div>
+      <div class="extras-grid" id="extrasGrid"></div>
+      <p class="extras-note" data-i18n="extras_note">Disponibilidad de extras sujeta al modelo elegido y a la visita técnica.</p>
     </div>
   </section>
 
   <!-- PROCESO -->
-  <section id="proceso" class="section-alt">
+  <section id="proceso">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Cómo funciona</span>
-        <h2>Nuestro proceso de instalación</h2>
-        <p>Un mismo equipo a cargo de principio a fin, en cuatro etapas.</p>
+        <span class="eyebrow" data-i18n="process_eyebrow">Cómo funciona</span>
+        <h2 data-i18n="process_title">Nuestro proceso de instalación</h2>
+        <p data-i18n="process_subtitle">Un mismo equipo a cargo de principio a fin, en cuatro etapas.</p>
       </div>
       <div class="process-list" id="processList"></div>
     </div>
   </section>
 
   <!-- GALERIA -->
-  <section id="galeria">
+  <section id="galeria" class="section-alt">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Fabricación</span>
-        <h2>Así se fabrica tu piscina</h2>
-        <p>Fibra de vidrio de alta densidad, moldeada y terminada antes de salir a instalación.</p>
+        <span class="eyebrow" data-i18n="fabrication_eyebrow">Fabricación</span>
+        <h2 data-i18n="fabrication_title">Así se fabrica tu piscina</h2>
+        <p data-i18n="fabrication_subtitle">Fibra de vidrio de alta densidad, moldeada y terminada antes de salir a instalación.</p>
       </div>
       <div class="gallery-grid" id="galleryGrid"></div>
     </div>
@@ -680,12 +799,12 @@
   <section>
     <div class="wrap">
       <div class="cta-band reveal">
-        <span class="eyebrow" style="color:#F6D9C4;">Siguiente paso</span>
-        <h2>Coordinemos una visita técnica sin costo</h2>
-        <p>Contános el tamaño del patio y el modelo que te interesa. Te respondemos con disponibilidad y precio en menos de 24 horas hábiles.</p>
+        <span class="eyebrow" style="color:#F6D9C4;" data-i18n="ctaband_eyebrow">Siguiente paso</span>
+        <h2 data-i18n="ctaband_title">Coordinemos una visita técnica sin costo</h2>
+        <p data-i18n="ctaband_subtitle">Contános el tamaño del patio y el modelo que te interesa. Te respondemos con disponibilidad y precio en menos de 24 horas hábiles.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#contacto">Escribir por WhatsApp</a>
-          <a class="btn btn-ghost" style="border-color:rgba(255,255,255,0.5); color:#fff;" href="#contacto">Ir al formulario</a>
+          <a class="btn btn-primary btn-whatsapp" href="#contacto" data-i18n="ctaband_whatsapp">Escribir por WhatsApp</a>
+          <a class="btn btn-ghost" style="border-color:rgba(255,255,255,0.5); color:#fff;" href="#contacto" data-i18n="ctaband_form">Ir al formulario</a>
         </div>
       </div>
     </div>
@@ -695,44 +814,44 @@
   <section id="contacto">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Contacto</span>
-        <h2>Hablemos de tu piscina</h2>
-        <p>Dejanos tus datos o escribinos directamente — lo que te resulte más fácil.</p>
+        <span class="eyebrow" data-i18n="contact_eyebrow">Contacto</span>
+        <h2 data-i18n="contact_title">Hablemos de tu piscina</h2>
+        <p data-i18n="contact_subtitle">Dejanos tus datos o escribinos directamente — lo que te resulte más fácil.</p>
       </div>
       <div class="contact-grid">
         <div class="contact-info reveal">
           <div class="item">
             <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <div>
-              <h4>Teléfono / WhatsApp</h4>
+              <h4 data-i18n="contact_phone_label">Teléfono / WhatsApp</h4>
               <a data-cfg="phoneHref" href="#" data-cfg-attr="href"><span data-cfg="phoneDisplay"></span></a>
             </div>
           </div>
           <div class="item">
             <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6c0 1-9 7-10 7S2 7 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span>
             <div>
-              <h4>Correo</h4>
+              <h4 data-i18n="contact_email_label">Correo</h4>
               <a data-cfg="emailHref" href="#"><span data-cfg="emailDisplay"></span></a>
             </div>
           </div>
           <div class="item">
             <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
             <div>
-              <h4>Instagram</h4>
+              <h4 data-i18n="contact_ig_label">Instagram</h4>
               <a data-cfg="instagramHref" href="#"><span data-cfg="instagramHandle"></span></a>
             </div>
           </div>
           <div class="item">
             <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <div>
-              <h4>Zona de trabajo</h4>
+              <h4 data-i18n="contact_zone_label">Zona de trabajo</h4>
               <p data-cfg="serviceArea"></p>
             </div>
           </div>
           <div class="item">
             <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
             <div>
-              <h4>Horario</h4>
+              <h4 data-i18n="contact_hours_label">Horario</h4>
               <p data-cfg="hours"></p>
             </div>
           </div>
@@ -740,18 +859,18 @@
 
         <form class="quote" id="quoteForm" action="https://formspree.io/f/mdekkwld" method="POST">
           <div class="row two">
-            <label>Nombre
-              <input type="text" name="nombre" required placeholder="Tu nombre" />
+            <label><span data-i18n="form_name">Nombre</span>
+              <input type="text" name="nombre" required placeholder="Tu nombre" data-i18n-placeholder="form_name_ph" />
             </label>
-            <label>Teléfono
+            <label><span data-i18n="form_phone">Teléfono</span>
               <input type="tel" name="telefono" required placeholder="8888 0000" />
             </label>
           </div>
-          <label>Correo
-            <input type="email" name="correo" placeholder="vos@correo.com" />
+          <label><span data-i18n="form_email">Correo</span>
+            <input type="email" name="correo" placeholder="vos@correo.com" data-i18n-placeholder="form_email_ph" />
           </label>
           <div class="row two">
-            <label>Provincia
+            <label><span data-i18n="form_province">Provincia</span>
               <select name="provincia">
                 <option>Guanacaste</option>
                 <option>Puntarenas</option>
@@ -762,17 +881,17 @@
                 <option>Limón</option>
               </select>
             </label>
-            <label>Modelo de interés
+            <label><span data-i18n="form_model">Modelo de interés</span>
               <select name="modelo" id="modeloSelect"></select>
             </label>
           </div>
-          <label>Contanos sobre tu proyecto
-            <textarea name="mensaje" placeholder="Tamaño del patio, acceso, fecha ideal de instalación..."></textarea>
+          <label><span data-i18n="form_message">Contanos sobre tu proyecto</span>
+            <textarea name="mensaje" placeholder="Tamaño del patio, acceso, fecha ideal de instalación..." data-i18n-placeholder="form_message_ph"></textarea>
           </label>
           <input type="hidden" name="_subject" value="Nueva cotización — Ola Piscinas" />
           <input type="hidden" name="_replyto" />
           <div class="submit-row">
-            <button class="btn btn-primary" type="submit">Enviar consulta</button>
+            <button class="btn btn-primary" type="submit" data-i18n="form_submit">Enviar consulta</button>
             <span id="form-msg"></span>
           </div>
         </form>
@@ -794,18 +913,18 @@
           </span>
           <span class="brand-name">OLA<small>PISCINAS</small></span>
         </a>
-        <p style="max-width:32ch; color:rgba(255,255,255,0.75); font-size:0.88rem; margin-top:10px;">Piscinas de fibra de vidrio hechas para el clima y el estilo de vida de Costa Rica.</p>
+        <p style="max-width:32ch; color:rgba(255,255,255,0.75); font-size:0.88rem; margin-top:10px;" data-i18n="footer_desc">Piscinas de fibra de vidrio hechas para el clima y el estilo de vida de Costa Rica.</p>
       </div>
       <div class="footer-links">
         <div class="col">
-          <h5>Sitio</h5>
-          <a href="#modelos">Modelos</a>
-          <a href="#proceso">Proceso</a>
-          <a href="#galeria">Fabricación</a>
-          <a href="#contacto">Contacto</a>
+          <h5 data-i18n="footer_site_col">Sitio</h5>
+          <a href="#modelos" data-i18n="nav_modelos">Modelos</a>
+          <a href="#proceso" data-i18n="nav_proceso">Proceso</a>
+          <a href="#galeria" data-i18n="nav_fabricacion">Fabricación</a>
+          <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
         </div>
         <div class="col">
-          <h5>Contacto</h5>
+          <h5 data-i18n="footer_contact_col">Contacto</h5>
           <a data-cfg="phoneHref" href="#"><span data-cfg="phoneDisplay"></span></a>
           <a data-cfg="emailHref" href="#"><span data-cfg="emailDisplay"></span></a>
           <a data-cfg="instagramHref" href="#"><span data-cfg="instagramHandle"></span></a>
@@ -813,8 +932,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year"></span> Ola Piscinas · Costa Rica</span>
-      <span>Piscinas de fibra de vidrio · Costa Rica</span>
+      <span>© <span id="year"></span> <span data-i18n="footer_copyright">Ola Piscinas · Costa Rica</span></span>
+      <span data-i18n="hero_eyebrow">Piscinas de fibra de vidrio · Costa Rica</span>
     </div>
   </div>
 </footer>
@@ -838,24 +957,30 @@
     hours: "Lunes a sábado, 8:00 a.m. – 5:00 p.m.",
   };
 
+  let lang = 'es';
+  try {
+    const saved = localStorage.getItem('ola_lang');
+    if (saved === 'es' || saved === 'en') lang = saved;
+  } catch (err) {}
+
   const MODELS = [
     {
-      name: "Modelo 4×3",
-      tag: "Piscina de fibra de vidrio",
+      province: "San José",
+      tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
       size: "4 × 3 m",
       price: "$15,300",
       waveColor: "#7D330E"
     },
     {
-      name: "Modelo 5×3",
-      tag: "Piscina de fibra de vidrio",
+      province: "Heredia",
+      tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
       size: "5 × 3 m",
       price: "$15,800",
       waveColor: "#4E95D9"
     },
     {
-      name: "Modelo AX106",
-      tag: "Con escalera de ingreso y banca integrada",
+      province: "Guanacaste",
+      tag: { es: "Con escalera de ingreso y banca integrada", en: "With entry steps and built-in bench" },
       size: "6 × 3 m", depth: "1.22 m", people: "6–8",
       price: "$17,100",
       code: "AX106",
@@ -863,15 +988,15 @@
       waveColor: "#46B1E1"
     },
     {
-      name: "Modelo 7×3",
-      tag: "Piscina de fibra de vidrio",
+      province: "Puntarenas",
+      tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
       size: "7 × 3 m",
       price: "$18,600",
       waveColor: "#234362"
     },
     {
-      name: "Modelo 8×3",
-      tag: "Piscina de fibra de vidrio",
+      province: "Limón",
+      tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
       size: "8 × 3 m",
       price: "$20,000",
       waveColor: "#C04F15"
@@ -879,18 +1004,173 @@
   ];
 
   const PROCESS = [
-    { title: "Visita técnica y cotización", dur: "Día 1", text: "Medimos el terreno, revisamos accesos y te entregamos una cotización detallada sin costo." },
-    { title: "Excavación y nivelación", dur: "Días 2–3", text: "Preparamos el terreno, la cama de arena y las conexiones hidráulicas necesarias." },
-    { title: "Instalación de la piscina", dur: "Días 4–6", text: "Colocamos la estructura de fibra de vidrio, nivelamos y conectamos el sistema de filtrado." },
-    { title: "Relleno, prueba y entrega", dur: "Días 7–10", text: "Llenamos, probamos filtración y bombeo, y te entregamos la piscina lista para usar con garantía." }
+    {
+      es: { title: "Visita técnica y cotización", dur: "Día 1", text: "Medimos el terreno, revisamos accesos y te entregamos una cotización detallada sin costo." },
+      en: { title: "Technical visit and quote", dur: "Day 1", text: "We measure the site, check access, and give you a detailed quote at no cost." }
+    },
+    {
+      es: { title: "Excavación y nivelación", dur: "Días 2–3", text: "Preparamos el terreno, la cama de arena y las conexiones hidráulicas necesarias." },
+      en: { title: "Excavation and leveling", dur: "Days 2–3", text: "We prepare the site, the sand base, and the necessary plumbing connections." }
+    },
+    {
+      es: { title: "Instalación de la piscina", dur: "Días 4–6", text: "Colocamos la estructura de fibra de vidrio, nivelamos y conectamos el sistema de filtrado." },
+      en: { title: "Pool installation", dur: "Days 4–6", text: "We place the fiberglass structure, level it, and connect the filtration system." }
+    },
+    {
+      es: { title: "Relleno, prueba y entrega", dur: "Días 7–10", text: "Llenamos, probamos filtración y bombeo, y te entregamos la piscina lista para usar con garantía." },
+      en: { title: "Filling, testing and handover", dur: "Days 7–10", text: "We fill the pool, test filtration and pumping, and hand it over ready to use, with warranty." }
+    }
   ];
 
   const GALLERY_IMAGES = [
-    { label: "Modelo AX106 instalado", photo: "img/modelo-ax106.jpg" },
-    { label: "Planta de fabricación", photo: "img/fabrica-planta.jpg" },
-    { label: "Detalle del casco de fibra de vidrio", photo: "img/fabrica-cascaron.jpg" },
-    { label: "Acabado interior antes de instalar", photo: "img/fabrica-interior.jpg" }
+    { label: { es: "Modelo Guanacaste instalado", en: "Guanacaste model installed" }, photo: "img/modelo-ax106.jpg" },
+    { label: { es: "Planta de fabricación", en: "Manufacturing plant" }, photo: "img/fabrica-planta.jpg" },
+    { label: { es: "Detalle del casco de fibra de vidrio", en: "Fiberglass shell detail" }, photo: "img/fabrica-cascaron.jpg" },
+    { label: { es: "Acabado interior antes de instalar", en: "Interior finish before installation" }, photo: "img/fabrica-interior.jpg" }
   ];
+
+  const EXTRAS = [
+    {
+      icon: '<path d="M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 4v9"/><path d="M8 8l4-4 4 4"/>',
+      es: { title: "Cascada", desc: "El sonido del agua en movimiento, para un patio con más vida." },
+      en: { title: "Waterfall", desc: "The sound of moving water, for a patio that feels more alive." }
+    },
+    {
+      icon: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>',
+      es: { title: "Luces LED", desc: "Iluminación sumergible para disfrutar tu piscina también de noche." },
+      en: { title: "LED lights", desc: "Submersible lighting to enjoy your pool at night too." }
+    },
+    {
+      icon: '<path d="M4 20V4M4 20h6M10 20v-5h6M16 15v-5h4"/>',
+      es: { title: "Escalera adicional", desc: "Un segundo punto de acceso, en el lugar que prefieras." },
+      en: { title: "Extra staircase", desc: "A second access point, wherever you prefer it." }
+    },
+    {
+      icon: '<path d="M5 4v16M5 8h13a2 2 0 0 1 2 2v10"/>',
+      es: { title: "Baranda", desc: "Apoyo firme y seguro para entrar y salir con confianza." },
+      en: { title: "Handrail", desc: "A firm, safe support for getting in and out with confidence." }
+    },
+    {
+      icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15h18M9 15V3"/>',
+      es: { title: "Borde personalizado", desc: "Terminación de piso alrededor de la piscina, a definir según tu espacio." },
+      en: { title: "Custom deck edge", desc: "Flooring around the pool, finished to match your space." }
+    }
+  ];
+
+  const FEATURED_FEATURES = [
+    {
+      icon: '<path d="M12 3l1.5 4.5H18l-3.7 2.7 1.4 4.5-3.7-2.8-3.7 2.8 1.4-4.5L6 7.5h4.5z"/>',
+      es: { title: "Superficie lisa y antideslizante", desc: "Más seguridad para tu familia." },
+      en: { title: "Smooth, anti-slip surface", desc: "More safety for your family." }
+    },
+    {
+      icon: '<path d="M12 2l7 4v6c0 5-3 8-7 10-4-2-7-5-7-10V6z"/>',
+      es: { title: "Resistentes a rayos UV", desc: "No se decolora ni se agrieta." },
+      en: { title: "UV resistant", desc: "Won't fade or crack." }
+    },
+    {
+      icon: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+      es: { title: "Larga vida útil", desc: "Una inversión para siempre." },
+      en: { title: "Long service life", desc: "An investment that lasts." }
+    },
+    {
+      icon: '<path d="M12 20l-1.5-1.4C5 14.4 2 11.7 2 8.3 2 5.6 4.1 3.5 6.8 3.5c1.5 0 3 .7 3.9 1.9.9-1.2 2.4-1.9 3.9-1.9 2.7 0 4.8 2.1 4.8 4.8 0 3.4-3 6.1-8.5 10.3L12 20z"/>',
+      es: { title: "Diseño exclusivo", desc: "Funcional, moderno y cómodo." },
+      en: { title: "Exclusive design", desc: "Functional, modern and comfortable." }
+    }
+  ];
+
+  const FEATURED_INCLUDES = [
+    { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
+    { es: "Equipo de filtración", en: "Filtration equipment" },
+    { es: "Instalación completa: excavación, base y conexiones", en: "Full installation: excavation, base and connections" },
+    { es: "La pedís y la colocamos", en: "You order it, we install it" }
+  ];
+
+  const T = {
+    es: {
+      nav_modelos: "Modelos", nav_proceso: "Proceso", nav_fabricacion: "Fabricación", nav_contacto: "Contacto", nav_cta: "Cotizar ahora",
+      hero_eyebrow: "Piscinas de fibra de vidrio · Costa Rica",
+      hero_h1_pre: "Tu propio", hero_h1_accent: "Pacífico", hero_h1_post: ", en el patio de tu casa",
+      hero_lede: "Diseñamos e instalamos piscinas de fibra de vidrio en todo Costa Rica, con acabados durables y un equipo a cargo de principio a fin.",
+      hero_cta_primary: "Pedí tu cotización", hero_cta_ghost: "Ver modelos",
+      hero_stat1_unit: "días", hero_stat1_label: "instalación promedio",
+      hero_stat2_unit: "años", hero_stat2_label: "garantía de estructura",
+      hero_guarantee_note: "Alcance y condiciones de garantía sujetos a consulta.",
+      featured_eyebrow: "Modelo principal", featured_name: "Modelo Guanacaste",
+      featured_desc: "Un diseño funcional y elegante, con escalera de ingreso y banca integrada de fábrica.",
+      featured_specs: "Profundidad 1.22 m · Resistente al cloro y la sal",
+      featured_includes_title: "Incluye todo", featured_cta: "Cotizar este modelo",
+      catalog_eyebrow: "Catálogo", catalog_title: "Modelos y precios",
+      catalog_subtitle: "Fibra de vidrio de alta densidad, con gelcoat resistente al cloro y al sol tropical.",
+      catalog_disclaimer: "Precios publicados en dólares. No incluyen impuestos ni flete. Instalación y equipo de filtración incluidos.",
+      size_label: "medidas", depth_label: "profundidad", people_label: "personas", price_label: "Precio", cta_cotizar: "Cotizar →",
+      model_prefix: "Modelo", form_model_unsure: "Aún no sé, quiero asesoría",
+      extras_eyebrow: "Extras opcionales", extras_title: "Personalizá tu piscina",
+      extras_subtitle: "Se cotizan por separado, según las características de tu proyecto.",
+      extras_note: "Disponibilidad de extras sujeta al modelo elegido y a la visita técnica.",
+      process_eyebrow: "Cómo funciona", process_title: "Nuestro proceso de instalación",
+      process_subtitle: "Un mismo equipo a cargo de principio a fin, en cuatro etapas.",
+      fabrication_eyebrow: "Fabricación", fabrication_title: "Así se fabrica tu piscina",
+      fabrication_subtitle: "Fibra de vidrio de alta densidad, moldeada y terminada antes de salir a instalación.",
+      ctaband_eyebrow: "Siguiente paso", ctaband_title: "Coordinemos una visita técnica sin costo",
+      ctaband_subtitle: "Contános el tamaño del patio y el modelo que te interesa. Te respondemos con disponibilidad y precio en menos de 24 horas hábiles.",
+      ctaband_whatsapp: "Escribir por WhatsApp", ctaband_form: "Ir al formulario",
+      contact_eyebrow: "Contacto", contact_title: "Hablemos de tu piscina",
+      contact_subtitle: "Dejanos tus datos o escribinos directamente — lo que te resulte más fácil.",
+      contact_phone_label: "Teléfono / WhatsApp", contact_email_label: "Correo", contact_ig_label: "Instagram",
+      contact_zone_label: "Zona de trabajo", contact_hours_label: "Horario",
+      form_name: "Nombre", form_name_ph: "Tu nombre", form_phone: "Teléfono", form_email: "Correo", form_email_ph: "vos@correo.com",
+      form_province: "Provincia", form_model: "Modelo de interés",
+      form_message: "Contanos sobre tu proyecto", form_message_ph: "Tamaño del patio, acceso, fecha ideal de instalación...",
+      form_submit: "Enviar consulta", form_sending: "Enviando...",
+      form_success: "Consulta enviada. Te contactamos en menos de 24 horas hábiles.",
+      form_error: "No se pudo enviar. Escribinos directo al",
+      footer_desc: "Piscinas de fibra de vidrio hechas para el clima y el estilo de vida de Costa Rica.",
+      footer_site_col: "Sitio", footer_contact_col: "Contacto", footer_copyright: "Ola Piscinas · Costa Rica"
+    },
+    en: {
+      nav_modelos: "Models", nav_proceso: "Process", nav_fabricacion: "Manufacturing", nav_contacto: "Contact", nav_cta: "Get a quote",
+      hero_eyebrow: "Fiberglass pools · Costa Rica",
+      hero_h1_pre: "Your own", hero_h1_accent: "Pacific", hero_h1_post: ", right in your backyard",
+      hero_lede: "We design and install fiberglass pools all over Costa Rica, with durable finishes and one team in charge from start to finish.",
+      hero_cta_primary: "Get your quote", hero_cta_ghost: "See models",
+      hero_stat1_unit: "days", hero_stat1_label: "average installation",
+      hero_stat2_unit: "years", hero_stat2_label: "structural warranty",
+      hero_guarantee_note: "Warranty scope and conditions available on request.",
+      featured_eyebrow: "Main model", featured_name: "Guanacaste Model",
+      featured_desc: "A functional, elegant design with built-in entry steps and bench.",
+      featured_specs: "1.22 m depth · Resistant to chlorine and salt",
+      featured_includes_title: "Everything included", featured_cta: "Get a quote for this model",
+      catalog_eyebrow: "Catalog", catalog_title: "Models and prices",
+      catalog_subtitle: "High-density fiberglass with gelcoat resistant to chlorine and tropical sun.",
+      catalog_disclaimer: "Prices listed in US dollars. Taxes and freight not included. Installation and filtration equipment included.",
+      size_label: "size", depth_label: "depth", people_label: "people", price_label: "Price", cta_cotizar: "Get a quote →",
+      model_prefix: "Model", form_model_unsure: "Not sure yet, I need advice",
+      extras_eyebrow: "Optional extras", extras_title: "Customize your pool",
+      extras_subtitle: "Quoted separately, based on your project.",
+      extras_note: "Extras availability depends on the model chosen and the technical visit.",
+      process_eyebrow: "How it works", process_title: "Our installation process",
+      process_subtitle: "One team in charge from start to finish, in four stages.",
+      fabrication_eyebrow: "Manufacturing", fabrication_title: "How your pool is made",
+      fabrication_subtitle: "High-density fiberglass, molded and finished before it ships for installation.",
+      ctaband_eyebrow: "Next step", ctaband_title: "Let's schedule a free technical visit",
+      ctaband_subtitle: "Tell us your patio size and the model you like. We'll reply with availability and price within 24 business hours.",
+      ctaband_whatsapp: "Message us on WhatsApp", ctaband_form: "Go to the form",
+      contact_eyebrow: "Contact", contact_title: "Let's talk about your pool",
+      contact_subtitle: "Leave us your details or write to us directly — whichever is easier for you.",
+      contact_phone_label: "Phone / WhatsApp", contact_email_label: "Email", contact_ig_label: "Instagram",
+      contact_zone_label: "Service area", contact_hours_label: "Hours",
+      form_name: "Name", form_name_ph: "Your name", form_phone: "Phone", form_email: "Email", form_email_ph: "you@email.com",
+      form_province: "Province", form_model: "Model of interest",
+      form_message: "Tell us about your project", form_message_ph: "Patio size, access, ideal installation date...",
+      form_submit: "Send inquiry", form_sending: "Sending...",
+      form_success: "Inquiry sent. We'll contact you within 24 business hours.",
+      form_error: "Could not send. Please write to us directly at",
+      footer_desc: "Fiberglass pools built for Costa Rica's climate and lifestyle.",
+      footer_site_col: "Site", footer_contact_col: "Contact", footer_copyright: "Ola Piscinas · Costa Rica"
+    }
+  };
 
   function waveSwatchSVG(color){
     return `<svg viewBox="0 0 300 168" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -909,49 +1189,105 @@
   }
 
   const modelGrid = document.getElementById('modelGrid');
-  modelGrid.innerHTML = MODELS.map(m => `
-    <article class="model-card">
-      <div class="model-swatch">
-        ${m.photo ? `<img src="${m.photo}" alt="${m.name}" loading="lazy" />` : waveSwatchSVG(m.waveColor)}
-      </div>
-      <div class="model-body">
-        <h3>${m.name}</h3>
-        <p class="model-tag">${m.tag}</p>
-        <div class="model-specs">
-          <span><b>${m.size}</b> medidas</span>
-          ${m.depth ? `<span><b>${m.depth}</b> profundidad</span>` : ''}
-          ${m.people ? `<span><b>${m.people}</b> personas</span>` : ''}
-        </div>
-        <div class="model-price">
-          <div><span class="from">Precio</span><span class="amount">${m.price}</span></div>
-          <a href="#contacto">Cotizar →</a>
-        </div>
-      </div>
-    </article>
-  `).join('');
-
   const modeloSelect = document.getElementById('modeloSelect');
-  modeloSelect.innerHTML = MODELS.map(m => `<option>${m.name}</option>`).join('') + '<option>Aún no sé, quiero asesoría</option>';
-
   const processList = document.getElementById('processList');
-  processList.innerHTML = PROCESS.map((p,i) => `
-    <div class="process-item">
-      <span class="process-num">${String(i+1).padStart(2,'0')}</span>
-      <div>
-        <h3>${p.title}</h3>
-        <p>${p.text}</p>
-        <span class="dur">${p.dur}</span>
-      </div>
-    </div>
-  `).join('');
-
   const galleryGrid = document.getElementById('galleryGrid');
-  galleryGrid.innerHTML = GALLERY_IMAGES.map(g => `
-    <div class="gallery-tile">
-      ${g.photo ? `<img src="${g.photo}" alt="${g.label}" loading="lazy" />` : galleryTileSVG(g.color)}
-      <span class="gallery-cap">${g.label}</span>
-    </div>
-  `).join('');
+  const extrasGrid = document.getElementById('extrasGrid');
+  const featuredFeatures = document.getElementById('featuredFeatures');
+  const featuredIncludes = document.getElementById('featuredIncludes');
+  const langToggle = document.getElementById('langToggle');
+
+  function renderDynamic(l){
+    modelGrid.innerHTML = MODELS.map(m => `
+      <article class="model-card">
+        <div class="model-swatch">
+          ${m.photo ? `<img src="${m.photo}" alt="${T[l].model_prefix} ${m.province}" loading="lazy" />` : waveSwatchSVG(m.waveColor)}
+        </div>
+        <div class="model-body">
+          <h3>${T[l].model_prefix} ${m.province}</h3>
+          <p class="model-tag">${m.tag[l]}</p>
+          <div class="model-specs">
+            <span><b>${m.size}</b> ${T[l].size_label}</span>
+            ${m.depth ? `<span><b>${m.depth}</b> ${T[l].depth_label}</span>` : ''}
+            ${m.people ? `<span><b>${m.people}</b> ${T[l].people_label}</span>` : ''}
+          </div>
+          <div class="model-price">
+            <div><span class="from">${T[l].price_label}</span><span class="amount">${m.price}</span></div>
+            <a href="#contacto">${T[l].cta_cotizar}</a>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    modeloSelect.innerHTML = MODELS.map(m => `<option>${T[l].model_prefix} ${m.province}</option>`).join('') + `<option>${T[l].form_model_unsure}</option>`;
+
+    processList.innerHTML = PROCESS.map((p,i) => `
+      <div class="process-item">
+        <span class="process-num">${String(i+1).padStart(2,'0')}</span>
+        <div>
+          <h3>${p[l].title}</h3>
+          <p>${p[l].text}</p>
+          <span class="dur">${p[l].dur}</span>
+        </div>
+      </div>
+    `).join('');
+
+    galleryGrid.innerHTML = GALLERY_IMAGES.map(g => `
+      <div class="gallery-tile">
+        ${g.photo ? `<img src="${g.photo}" alt="${g.label[l]}" loading="lazy" />` : galleryTileSVG(g.color)}
+        <span class="gallery-cap">${g.label[l]}</span>
+      </div>
+    `).join('');
+
+    extrasGrid.innerHTML = EXTRAS.map(x => `
+      <div class="extra-card">
+        <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${x.icon}</svg></span>
+        <h4>${x[l].title}</h4>
+        <p>${x[l].desc}</p>
+      </div>
+    `).join('');
+
+    featuredFeatures.innerHTML = FEATURED_FEATURES.map(f => `
+      <div>
+        <h4>${f[l].title}</h4>
+        <p>${f[l].desc}</p>
+      </div>
+    `).join('');
+
+    featuredIncludes.innerHTML = FEATURED_INCLUDES.map(i => `
+      <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>${i[l]}</li>
+    `).join('');
+  }
+
+  function applyI18n(l){
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[l][key] !== undefined) el.textContent = T[l][key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (T[l][key] !== undefined) el.setAttribute('placeholder', T[l][key]);
+    });
+    langToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+    document.title = l === 'en'
+      ? "Ola Piscinas — Fiberglass pools in Costa Rica"
+      : "Ola Piscinas — Piscinas de fibra de vidrio en Costa Rica";
+  }
+
+  function setLang(l){
+    lang = l;
+    try { localStorage.setItem('ola_lang', l); } catch (err) {}
+    applyI18n(l);
+    renderDynamic(l);
+  }
+
+  langToggle.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-lang]');
+    if (btn) setLang(btn.dataset.lang);
+  });
+
+  setLang(lang);
 
   document.querySelectorAll('[data-cfg]').forEach(el => {
     const key = el.getAttribute('data-cfg');
@@ -964,7 +1300,7 @@
   document.querySelectorAll('a[data-cfg="phoneHref"]').forEach(a => a.href = CONFIG.phoneHref);
   document.querySelectorAll('a[data-cfg="emailHref"]').forEach(a => a.href = CONFIG.emailHref);
   document.querySelectorAll('a[data-cfg="instagramHref"]').forEach(a => a.href = CONFIG.instagramHref);
-  document.querySelectorAll('.hero-ctas .btn-primary, .cta-band a.btn-primary').forEach(a => { if(a.textContent.includes('WhatsApp')) a.href = CONFIG.whatsappHref; });
+  document.querySelectorAll('.btn-whatsapp').forEach(a => a.href = CONFIG.whatsappHref);
 
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -990,7 +1326,7 @@
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
     formMsg.style.color = '';
-    formMsg.textContent = 'Enviando...';
+    formMsg.textContent = T[lang].form_sending;
 
     try {
       const response = await fetch(CONFIG.formEndpoint, {
@@ -999,15 +1335,15 @@
         headers: { 'Accept': 'application/json' }
       });
       if (response.ok) {
-        formMsg.textContent = 'Consulta enviada. Te contactamos en menos de 24 horas hábiles.';
+        formMsg.textContent = T[lang].form_success;
         form.reset();
       } else {
         formMsg.style.color = '#C04F15';
-        formMsg.textContent = `No se pudo enviar. Escribinos directo al ${CONFIG.phoneDisplay}.`;
+        formMsg.textContent = `${T[lang].form_error} ${CONFIG.phoneDisplay}.`;
       }
     } catch (err) {
       formMsg.style.color = '#C04F15';
-      formMsg.textContent = `No se pudo enviar. Escribinos directo al ${CONFIG.phoneDisplay}.`;
+      formMsg.textContent = `${T[lang].form_error} ${CONFIG.phoneDisplay}.`;
     } finally {
       submitBtn.disabled = false;
     }
