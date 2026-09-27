@@ -353,7 +353,7 @@
     position: relative;
     overflow: hidden;
   }
-  .model-swatch svg { width: 100%; height: 100%; }
+  .model-swatch svg, .model-swatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .model-badge {
     position: absolute;
     top: 14px;
@@ -452,7 +452,7 @@
     position: relative;
     border: 1px solid var(--border);
   }
-  .gallery-tile svg { width: 100%; height: 100%; }
+  .gallery-tile svg, .gallery-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .gallery-cap {
     position: absolute;
     left: 0; right: 0; bottom: 0;
@@ -596,7 +596,7 @@
     <nav class="links nav-links-desktop">
       <a href="#modelos">Modelos</a>
       <a href="#proceso">Proceso</a>
-      <a href="#galeria">Proyectos</a>
+      <a href="#galeria">Fabricación</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <div style="display:flex; align-items:center; gap:10px;">
@@ -609,7 +609,7 @@
   <nav id="mobile-menu">
     <a href="#modelos">Modelos</a>
     <a href="#proceso">Proceso</a>
-    <a href="#galeria">Proyectos</a>
+    <a href="#galeria">Fabricación</a>
     <a href="#contacto">Contacto</a>
   </nav>
 </header>
@@ -668,9 +668,9 @@
   <section id="galeria">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Proyectos</span>
-        <h2>Así lucen nuestras piscinas</h2>
-        <p>Fibra de vidrio de alta densidad con acabados pensados para el clima costarricense.</p>
+        <span class="eyebrow">Fabricación</span>
+        <h2>Así se fabrica tu piscina</h2>
+        <p>Fibra de vidrio de alta densidad, moldeada y terminada antes de salir a instalación.</p>
       </div>
       <div class="gallery-grid" id="galleryGrid"></div>
     </div>
@@ -801,7 +801,7 @@
           <h5>Sitio</h5>
           <a href="#modelos">Modelos</a>
           <a href="#proceso">Proceso</a>
-          <a href="#galeria">Proyectos</a>
+          <a href="#galeria">Fabricación</a>
           <a href="#contacto">Contacto</a>
         </div>
         <div class="col">
@@ -859,6 +859,7 @@
       size: "6 × 3 m", depth: "1.22 m", people: "6–8",
       price: "$17,100",
       code: "AX106",
+      photo: "img/modelo-ax106.jpg",
       waveColor: "#46B1E1"
     },
     {
@@ -885,12 +886,10 @@
   ];
 
   const GALLERY_IMAGES = [
-    { label: "Acabado gelcoat blanco", color: "#46B1E1" },
-    { label: "Escalera de ingreso", color: "#4E95D9" },
-    { label: "Banca integrada", color: "#C04F15" },
-    { label: "Borde perimetral", color: "#234362" },
-    { label: "Sistema de filtración", color: "#7D330E" },
-    { label: "Vista general", color: "#46B1E1" }
+    { label: "Modelo AX106 instalado", photo: "img/modelo-ax106.jpg" },
+    { label: "Planta de fabricación", photo: "img/fabrica-planta.jpg" },
+    { label: "Detalle del casco de fibra de vidrio", photo: "img/fabrica-cascaron.jpg" },
+    { label: "Acabado interior antes de instalar", photo: "img/fabrica-interior.jpg" }
   ];
 
   function waveSwatchSVG(color){
@@ -913,7 +912,7 @@
   modelGrid.innerHTML = MODELS.map(m => `
     <article class="model-card">
       <div class="model-swatch">
-        ${waveSwatchSVG(m.waveColor)}
+        ${m.photo ? `<img src="${m.photo}" alt="${m.name}" loading="lazy" />` : waveSwatchSVG(m.waveColor)}
       </div>
       <div class="model-body">
         <h3>${m.name}</h3>
@@ -949,7 +948,7 @@
   const galleryGrid = document.getElementById('galleryGrid');
   galleryGrid.innerHTML = GALLERY_IMAGES.map(g => `
     <div class="gallery-tile">
-      ${galleryTileSVG(g.color)}
+      ${g.photo ? `<img src="${g.photo}" alt="${g.label}" loading="lazy" />` : galleryTileSVG(g.color)}
       <span class="gallery-cap">${g.label}</span>
     </div>
   `).join('');
