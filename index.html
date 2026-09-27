@@ -372,7 +372,7 @@
     position: relative;
     overflow: hidden;
   }
-  .model-swatch svg, .model-swatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .model-swatch svg, .model-swatch img { width: 100%; height: 100%; object-fit: cover; object-position: left center; display: block; }
   .model-badge {
     position: absolute;
     top: 14px;
@@ -770,7 +770,7 @@
             <h5 data-i18n="featured_includes_title">Incluye todo</h5>
             <ul id="featuredIncludes"></ul>
           </div>
-          <a class="btn btn-primary" href="#contacto" data-i18n="featured_cta">Cotizar este modelo</a>
+          <a class="btn btn-primary" href="#contacto" data-i18n="featured_cta" data-province="Guanacaste">Cotizar este modelo</a>
         </div>
       </div>
     </div>
@@ -998,38 +998,42 @@
     {
       province: "San José",
       tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
-      size: "4 × 3 m",
+      size: "4 × 3 m", depth: "1.22 m",
       price: "$15,300",
+      photo: "img/modelo-4x3.jpg",
       waveColor: "#7D330E"
     },
     {
       province: "Heredia",
       tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
-      size: "5 × 3 m",
+      size: "5 × 3 m", depth: "1.22 m",
       price: "$15,800",
+      photo: "img/modelo-5x3.jpg",
       waveColor: "#4E95D9"
     },
     {
       province: "Guanacaste",
       tag: { es: "Con escalera de ingreso y banca integrada", en: "With entry steps and built-in bench" },
-      size: "6 × 3 m", depth: "1.22 m", people: "6–8",
+      size: "6 × 3 m", depth: "1.22 m",
       price: "$17,100",
       code: "AX106",
-      photo: "img/modelo-ax106.jpg",
+      photo: "img/modelo-6x3.jpg",
       waveColor: "#46B1E1"
     },
     {
       province: "Puntarenas",
       tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
-      size: "7 × 3 m",
+      size: "7 × 3 m", depth: "1.22 m",
       price: "$18,600",
+      photo: "img/modelo-7x3.jpg",
       waveColor: "#234362"
     },
     {
       province: "Limón",
       tag: { es: "Piscina de fibra de vidrio", en: "Fiberglass pool" },
-      size: "8 × 3 m",
+      size: "8 × 3 m", depth: "1.22 m",
       price: "$20,000",
+      photo: "img/modelo-8x3.jpg",
       waveColor: "#C04F15"
     }
   ];
@@ -1246,7 +1250,7 @@
           </div>
           <div class="model-price">
             <div><span class="from">${T[l].price_label}</span><span class="amount">${m.price}</span></div>
-            <a href="#contacto">${T[l].cta_cotizar}</a>
+            <a href="#contacto" data-province="${m.province}">${T[l].cta_cotizar}</a>
           </div>
         </div>
       </article>
@@ -1349,6 +1353,14 @@
   });
 
   setLang(lang);
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('a[data-province]');
+    if (!btn) return;
+    const wanted = `${T[lang].model_prefix} ${btn.dataset.province}`;
+    const opt = Array.from(modeloSelect.options).find(o => o.value === wanted);
+    if (opt) modeloSelect.value = wanted;
+  });
 
   document.getElementById('year').textContent = new Date().getFullYear();
 
