@@ -953,8 +953,8 @@
     instagramHandle: "@ola.piscinascostarica",
     instagramHref: "https://instagram.com/ola.piscinascostarica",
     formEndpoint: "https://formspree.io/f/mdekkwld",
-    serviceArea: "Todo Costa Rica",
-    hours: "Lunes a sábado, 8:00 a.m. – 5:00 p.m.",
+    serviceArea: { es: "Todo Costa Rica", en: "All of Costa Rica" },
+    hours: { es: "Lunes a sábado, 8:00 a.m. – 5:00 p.m.", en: "Monday to Saturday, 8:00 a.m. – 5:00 p.m." },
   };
 
   let lang = 'es';
@@ -1275,11 +1275,29 @@
       : "Ola Piscinas — Piscinas de fibra de vidrio en Costa Rica";
   }
 
+  function applyCfg(l){
+    document.querySelectorAll('[data-cfg]').forEach(el => {
+      const key = el.getAttribute('data-cfg');
+      let val = CONFIG[key];
+      if (val && typeof val === 'object') val = val[l];
+      if (el.hasAttribute('data-cfg-attr')) {
+        el.setAttribute(el.getAttribute('data-cfg-attr'), val);
+      } else if (el.children.length === 0) {
+        el.textContent = val;
+      }
+    });
+    document.querySelectorAll('a[data-cfg="phoneHref"]').forEach(a => a.href = CONFIG.phoneHref);
+    document.querySelectorAll('a[data-cfg="emailHref"]').forEach(a => a.href = CONFIG.emailHref);
+    document.querySelectorAll('a[data-cfg="instagramHref"]').forEach(a => a.href = CONFIG.instagramHref);
+    document.querySelectorAll('.btn-whatsapp').forEach(a => a.href = CONFIG.whatsappHref);
+  }
+
   function setLang(l){
     lang = l;
     try { localStorage.setItem('ola_lang', l); } catch (err) {}
     applyI18n(l);
     renderDynamic(l);
+    applyCfg(l);
   }
 
   langToggle.addEventListener('click', (e) => {
@@ -1288,19 +1306,6 @@
   });
 
   setLang(lang);
-
-  document.querySelectorAll('[data-cfg]').forEach(el => {
-    const key = el.getAttribute('data-cfg');
-    if (el.hasAttribute('data-cfg-attr')) {
-      el.setAttribute(el.getAttribute('data-cfg-attr'), CONFIG[key]);
-    } else if (el.children.length === 0) {
-      el.textContent = CONFIG[key];
-    }
-  });
-  document.querySelectorAll('a[data-cfg="phoneHref"]').forEach(a => a.href = CONFIG.phoneHref);
-  document.querySelectorAll('a[data-cfg="emailHref"]').forEach(a => a.href = CONFIG.emailHref);
-  document.querySelectorAll('a[data-cfg="instagramHref"]').forEach(a => a.href = CONFIG.instagramHref);
-  document.querySelectorAll('.btn-whatsapp').forEach(a => a.href = CONFIG.whatsappHref);
 
   document.getElementById('year').textContent = new Date().getFullYear();
 
