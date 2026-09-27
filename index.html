@@ -431,9 +431,34 @@
     grid-template-columns: 1fr;
   }
   @media (min-width: 880px) { .featured-band { grid-template-columns: 0.95fr 1.05fr; } }
-  .featured-photo { aspect-ratio: 4/3; align-self: center; padding: 18px; }
-  @media (min-width: 880px) { .featured-photo { padding: 28px 20px 28px 28px; } }
-  .featured-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; display: block; }
+  .featured-visual { display: flex; flex-direction: column; gap: 14px; padding: 22px; align-self: center; }
+  @media (min-width: 880px) { .featured-visual { padding: 32px 24px 32px 32px; height: 100%; justify-content: center; } }
+  .featured-photo {
+    aspect-ratio: 4/3;
+    background: #fff;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 16px;
+  }
+  .featured-photo img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+  .view-toggle { display: flex; gap: 6px; align-self: center; }
+  .view-toggle button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .view-toggle button.active { background: #fff; color: var(--azul-profundo); border-color: #fff; }
   .featured-content { padding: clamp(28px, 4vw, 48px); display: grid; gap: 20px; align-content: start; }
   .featured-eyebrow { font-family:'Poppins',sans-serif; font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--celeste); }
   .featured-size { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -723,8 +748,14 @@
   <section id="destacado">
     <div class="wrap">
       <div class="featured-band reveal">
-        <div class="featured-photo">
-          <img src="img/modelo-ax106.jpg" alt="Modelo Guanacaste 6x3" />
+        <div class="featured-visual">
+          <div class="featured-photo">
+            <img id="featuredImg" src="img/modelo-guanacaste-3d.jpg" alt="Modelo Guanacaste 6x3" />
+          </div>
+          <div class="view-toggle" id="viewToggle">
+            <button type="button" data-view="3d" class="active" data-i18n="featured_view_3d">Vista 3D</button>
+            <button type="button" data-view="top" data-i18n="featured_view_top">Vista superior</button>
+          </div>
         </div>
         <div class="featured-content">
           <span class="featured-eyebrow" data-i18n="featured_eyebrow">Modelo principal</span>
@@ -1101,6 +1132,7 @@
       featured_desc: "Un diseño funcional y elegante, con escalera de ingreso y banca integrada de fábrica.",
       featured_specs: "Profundidad 1.22 m · Resistente al cloro y la sal",
       featured_includes_title: "Incluye todo", featured_cta: "Cotizar este modelo",
+      featured_view_3d: "Vista 3D", featured_view_top: "Vista superior",
       catalog_eyebrow: "Catálogo", catalog_title: "Modelos y precios",
       catalog_subtitle: "Fibra de vidrio de alta densidad, con gelcoat resistente al cloro y al sol tropical.",
       catalog_disclaimer: "Precios publicados en dólares. No incluyen impuestos ni flete. Instalación y equipo de filtración incluidos.",
@@ -1142,6 +1174,7 @@
       featured_desc: "A functional, elegant design with built-in entry steps and bench.",
       featured_specs: "1.22 m depth · Resistant to chlorine and salt",
       featured_includes_title: "Everything included", featured_cta: "Get a quote for this model",
+      featured_view_3d: "3D view", featured_view_top: "Top view",
       catalog_eyebrow: "Catalog", catalog_title: "Models and prices",
       catalog_subtitle: "High-density fiberglass with gelcoat resistant to chlorine and tropical sun.",
       catalog_disclaimer: "Prices listed in US dollars. Taxes and freight not included. Installation and filtration equipment included.",
@@ -1303,6 +1336,16 @@
   langToggle.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-lang]');
     if (btn) setLang(btn.dataset.lang);
+  });
+
+  const viewToggle = document.getElementById('viewToggle');
+  const featuredImg = document.getElementById('featuredImg');
+  const VIEW_IMAGES = { '3d': 'img/modelo-guanacaste-3d.jpg', top: 'img/modelo-guanacaste-top.jpg' };
+  viewToggle.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-view]');
+    if (!btn) return;
+    featuredImg.src = VIEW_IMAGES[btn.dataset.view];
+    viewToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
   });
 
   setLang(lang);
