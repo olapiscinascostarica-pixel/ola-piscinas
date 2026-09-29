@@ -19,6 +19,16 @@
   gtag('js', new Date());
   gtag('config', 'G-3PF82MCYHN');
 </script>
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1391053259656364');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1391053259656364&ev=PageView&noscript=1" /></noscript>
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="img/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Ola Piscinas — Piscinas de fibra de vidrio en Costa Rica</title>
 <style>
@@ -1418,6 +1428,12 @@
     if (opt) modeloSelect.value = wanted;
   });
 
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.btn-whatsapp, #whatsappFloat') && typeof fbq === 'function') {
+      fbq('track', 'Contact');
+    }
+  });
+
   document.getElementById('year').textContent = new Date().getFullYear();
 
   const menuBtn = document.getElementById('menuBtn');
@@ -1452,6 +1468,7 @@
       });
       if (response.ok) {
         formMsg.textContent = T[lang].form_success;
+        if (typeof fbq === 'function') fbq('track', 'Lead');
         form.reset();
       } else {
         formMsg.style.color = '#C04F15';
