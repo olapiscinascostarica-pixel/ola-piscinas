@@ -29,6 +29,15 @@
   fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1039604085728493&ev=PageView&noscript=1" /></noscript>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"¿Qué medidas de piscina tienen?","acceptedAnswer":{"@type":"Answer","text":"Trabajamos con cinco modelos: 4×3, 5×3, 6×3, 7×3 y 8×3 metros. Todos tienen 3 m de ancho y 1,22 m de profundidad."}},
+{"@type":"Question","name":"¿Qué incluye el precio?","acceptedAnswer":{"@type":"Answer","text":"Incluye la piscina de fibra de vidrio blanca, el equipo de filtración y la instalación completa: excavación, base y conexiones."}},
+{"@type":"Question","name":"¿Cuánto tarda la instalación?","acceptedAnswer":{"@type":"Answer","text":"La instalación se hace en 24 horas. Antes hacemos una visita técnica sin costo para medir el terreno y revisar los accesos."}},
+{"@type":"Question","name":"¿Qué garantía tienen?","acceptedAnswer":{"@type":"Answer","text":"Las piscinas tienen 5 años de garantía de estructura. El alcance y las condiciones se detallan al cotizar."}},
+{"@type":"Question","name":"¿Instalan en todo Costa Rica?","acceptedAnswer":{"@type":"Answer","text":"Sí, trabajamos en todo el país. El flete se cotiza según la zona."}}
+]}
+</script>
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="img/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Ola Piscinas — Piscinas de fibra de vidrio en Costa Rica</title>
 <style>
@@ -570,6 +579,39 @@
     text-transform: uppercase;
   }
 
+  /* ---------- FAQ ---------- */
+  .faq-list { display: grid; gap: 12px; max-width: 820px; }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0 22px;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--accent);
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { margin: 0; padding: 0 0 20px; color: var(--text-soft); font-size: 0.95rem; max-width: 62ch; }
+
   /* ---------- Gallery ---------- */
   .gallery-grid {
     display: grid;
@@ -872,6 +914,18 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="faq_eyebrow">Preguntas frecuentes</span>
+        <h2 data-i18n="faq_title">Lo que más nos preguntan</h2>
+        <p data-i18n="faq_subtitle">Si no encontrás tu duda acá, escribinos y te respondemos.</p>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </section>
+
   <!-- GALERIA -->
   <section id="galeria" class="section-alt">
     <div class="wrap">
@@ -1127,6 +1181,45 @@
     { label: { es: "Acabado interior antes de instalar", en: "Interior finish before installation" }, photo: "img/fabrica-interior.jpg" }
   ];
 
+  const FAQ = [
+    {
+      es: { q: "¿Qué medidas de piscina tienen?", a: "Trabajamos con cinco modelos: 4×3, 5×3, 6×3, 7×3 y 8×3 metros. Todos tienen 3 m de ancho y 1,22 m de profundidad." },
+      en: { q: "What pool sizes do you offer?", a: "We offer five models: 4×3, 5×3, 6×3, 7×3 and 8×3 meters. All of them are 3 m wide and 1.22 m deep." }
+    },
+    {
+      es: { q: "¿Se pueden hacer otras medidas?", a: "Hoy trabajamos con estos cinco modelos. Si necesitás una medida distinta, escribinos con el largo y el ancho de tu espacio y te contamos qué opción te conviene." },
+      en: { q: "Can you make other sizes?", a: "Right now we work with these five models. If you need a different size, write to us with the length and width of your space and we'll tell you which option suits you best." }
+    },
+    {
+      es: { q: "¿Qué incluye el precio?", a: "Incluye la piscina de fibra de vidrio blanca, el equipo de filtración y la instalación completa: excavación, base y conexiones." },
+      en: { q: "What does the price include?", a: "It includes the white fiberglass pool, the filtration equipment and the full installation: excavation, base and connections." }
+    },
+    {
+      es: { q: "¿Qué no incluye el precio?", a: "Los precios son en dólares y no incluyen impuestos ni flete. Tampoco incluyen los extras (cascada, luces LED, escalera adicional, baranda y borde personalizado) ni otros colores, que se cotizan aparte." },
+      en: { q: "What is not included in the price?", a: "Prices are in US dollars and do not include taxes or freight. Extras (waterfall, LED lights, extra staircase, handrail and custom deck edge) and other colors are quoted separately." }
+    },
+    {
+      es: { q: "¿Cuánto tarda la instalación?", a: "La instalación se hace en 24 horas. Antes hacemos una visita técnica sin costo para medir el terreno y revisar los accesos." },
+      en: { q: "How long does installation take?", a: "Installation takes 24 hours. Beforehand we do a free technical visit to measure the site and check access." }
+    },
+    {
+      es: { q: "¿Qué garantía tienen?", a: "Las piscinas tienen 5 años de garantía de estructura. El alcance y las condiciones se detallan al cotizar." },
+      en: { q: "What warranty do you offer?", a: "Pools come with a 5-year structural warranty. Scope and conditions are detailed when you request a quote." }
+    },
+    {
+      es: { q: "¿Se puede elegir otro color?", a: "El color estándar es blanco. Si querés otro color, se puede pedir y se cotiza aparte." },
+      en: { q: "Can I choose a different color?", a: "The standard color is white. If you prefer another color, you can request it and it is quoted separately." }
+    },
+    {
+      es: { q: "¿Instalan en todo Costa Rica?", a: "Sí, trabajamos en todo el país. El flete se cotiza según la zona." },
+      en: { q: "Do you install all over Costa Rica?", a: "Yes, we work nationwide. Freight is quoted according to your location." }
+    },
+    {
+      es: { q: "¿Cómo pido una cotización?", a: "Escribinos por WhatsApp o completá el formulario de contacto. Te respondemos con disponibilidad y precio en menos de 24 horas hábiles." },
+      en: { q: "How do I get a quote?", a: "Message us on WhatsApp or fill in the contact form. We reply with availability and price within 24 business hours." }
+    }
+  ];
+
   const EXTRAS = [
     {
       icon: '<path d="M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M12 4v9"/><path d="M8 8l4-4 4 4"/>',
@@ -1211,6 +1304,7 @@
       extras_note: "Disponibilidad de extras sujeta al modelo elegido y a la visita técnica.",
       process_eyebrow: "Cómo funciona", process_title: "Nuestro proceso de instalación",
       process_subtitle: "Un mismo equipo a cargo de principio a fin, en cuatro etapas.",
+      faq_eyebrow: "Preguntas frecuentes", faq_title: "Lo que más nos preguntan", faq_subtitle: "Si no encontrás tu duda acá, escribinos y te respondemos.",
       fabrication_eyebrow: "Fabricación", fabrication_title: "Así se fabrica tu piscina",
       fabrication_subtitle: "Fibra de vidrio de alta densidad, moldeada y terminada antes de salir a instalación.",
       ctaband_eyebrow: "Siguiente paso", ctaband_title: "Coordinemos una visita técnica sin costo",
@@ -1255,6 +1349,7 @@
       extras_note: "Extras availability depends on the model chosen and the technical visit.",
       process_eyebrow: "How it works", process_title: "Our installation process",
       process_subtitle: "One team in charge from start to finish, in four stages.",
+      faq_eyebrow: "FAQ", faq_title: "What people ask us most", faq_subtitle: "If you can't find your question here, message us and we'll answer.",
       fabrication_eyebrow: "Manufacturing", fabrication_title: "How your pool is made",
       fabrication_subtitle: "High-density fiberglass, molded and finished before it ships for installation.",
       ctaband_eyebrow: "Next step", ctaband_title: "Let's schedule a free technical visit",
@@ -1297,6 +1392,7 @@
   const processList = document.getElementById('processList');
   const galleryGrid = document.getElementById('galleryGrid');
   const extrasGrid = document.getElementById('extrasGrid');
+  const faqList = document.getElementById('faqList');
   const featuredFeatures = document.getElementById('featuredFeatures');
   const featuredIncludes = document.getElementById('featuredIncludes');
   const langToggle = document.getElementById('langToggle');
@@ -1342,6 +1438,13 @@
         ${g.photo ? `<img src="${g.photo}" alt="${g.label[l]}" loading="lazy" />` : galleryTileSVG(g.color)}
         <span class="gallery-cap">${g.label[l]}</span>
       </div>
+    `).join('');
+
+    faqList.innerHTML = FAQ.map(f => `
+      <details class="faq-item">
+        <summary>${f[l].q}</summary>
+        <p>${f[l].a}</p>
+      </details>
     `).join('');
 
     extrasGrid.innerHTML = EXTRAS.map(x => `
