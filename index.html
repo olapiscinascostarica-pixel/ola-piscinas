@@ -18,9 +18,6 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  var olaConsent = null;
-  try { olaConsent = localStorage.getItem('ola_cookies'); } catch (e) {}
-  if (olaConsent === 'no') { window['ga-disable-G-3PF82MCYHN'] = true; }
   gtag('js', new Date());
   gtag('config', 'G-3PF82MCYHN');
 </script>
@@ -30,7 +27,6 @@
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
   t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
   document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  if (olaConsent === 'no') { fbq('consent', 'revoke'); }
   fbq('init', '1039604085728493');
   fbq('track', 'PageView');
 </script>
@@ -1122,8 +1118,7 @@
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Cookies">
   <p><span data-i18n="cookie_text">Usamos cookies de análisis y publicidad para mejorar el sitio y medir nuestros anuncios.</span> <a href="/cookies" data-i18n="cookie_more">Más información</a></p>
   <div class="cookie-actions">
-    <button type="button" id="cookieNo" data-i18n="cookie_reject">Rechazar</button>
-    <button type="button" class="ok" id="cookieYes" data-i18n="cookie_accept">Aceptar</button>
+    <button type="button" class="ok" id="cookieYes" data-i18n="cookie_accept">Entendido</button>
   </div>
 </div>
 
@@ -1366,7 +1361,7 @@
       legal_notice: "Aviso legal", legal_privacy: "Política de privacidad", legal_cookies: "Aviso de cookies",
       form_consent: "Al enviar aceptás nuestra",
       cookie_text: "Usamos cookies de análisis y publicidad para mejorar el sitio y medir nuestros anuncios.",
-      cookie_more: "Más información", cookie_reject: "Rechazar", cookie_accept: "Aceptar",
+      cookie_more: "Más información", cookie_accept: "Entendido",
       whatsapp_float: "Escribinos"
     },
     en: {
@@ -1415,7 +1410,7 @@
       legal_notice: "Legal notice", legal_privacy: "Privacy policy", legal_cookies: "Cookie notice",
       form_consent: "By submitting you accept our",
       cookie_text: "We use analytics and advertising cookies to improve the site and measure our ads.",
-      cookie_more: "More information", cookie_reject: "Reject", cookie_accept: "Accept",
+      cookie_more: "More information", cookie_accept: "Got it",
       whatsapp_float: "Message us"
     }
   };
@@ -1592,18 +1587,10 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 
   const cookieBanner = document.getElementById('cookieBanner');
-  function setCookieChoice(v){
-    try { localStorage.setItem('ola_cookies', v); } catch (err) {}
+  document.getElementById('cookieYes').addEventListener('click', () => {
+    try { localStorage.setItem('ola_cookies', 'yes'); } catch (err) {}
     cookieBanner.classList.remove('show');
-    if (v === 'no') {
-      window['ga-disable-G-3PF82MCYHN'] = true;
-      if (typeof fbq === 'function') fbq('consent', 'revoke');
-    } else if (typeof fbq === 'function') {
-      fbq('consent', 'grant');
-    }
-  }
-  document.getElementById('cookieYes').addEventListener('click', () => setCookieChoice('yes'));
-  document.getElementById('cookieNo').addEventListener('click', () => setCookieChoice('no'));
+  });
   try { if (!localStorage.getItem('ola_cookies')) cookieBanner.classList.add('show'); } catch (err) { cookieBanner.classList.add('show'); }
 
   const menuBtn = document.getElementById('menuBtn');
