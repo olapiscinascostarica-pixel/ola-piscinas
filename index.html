@@ -429,6 +429,8 @@
     padding: 5px 11px;
     border-radius: 999px;
   }
+  .model-badge.best { background: var(--terracota); color: #fff; box-shadow: 0 6px 14px -6px rgba(0,0,0,0.4); }
+  .model-card.is-best { border-color: var(--terracota); box-shadow: 0 0 0 2px var(--terracota), var(--card-shadow); }
   .model-body { padding: 22px 22px 24px; display: grid; gap: 12px; flex: 1; }
   .model-body h3 { font-size: 1.3rem; }
   .model-tag { color: var(--text-soft); font-size: 0.88rem; margin: -6px 0 0; }
@@ -897,7 +899,7 @@
           </div>
         </div>
         <div class="featured-content">
-          <span class="featured-eyebrow" data-i18n="featured_eyebrow">Modelo principal</span>
+          <span class="featured-eyebrow" data-i18n="featured_eyebrow">El más vendido</span>
           <div class="featured-size">
             <span class="num">6×3</span>
             <span class="name" data-i18n="featured_name">Modelo Guanacaste</span>
@@ -1199,6 +1201,7 @@
       size: "6 × 3 m", depth: "1.22 m",
       price: "$17,100",
       code: "AX106",
+      best: true,
       photo: "img/modelo-6x3.jpg",
       waveColor: "#46B1E1"
     },
@@ -1362,7 +1365,8 @@
       hero_stat1_unit: "horas", hero_stat1_label: "instalación",
       hero_stat2_unit: "años", hero_stat2_label: "garantía de estructura",
       hero_guarantee_note: "Alcance y condiciones de garantía sujetos a consulta.",
-      featured_eyebrow: "Modelo principal", featured_name: "Modelo Guanacaste",
+      best_seller: "Más vendido",
+      featured_eyebrow: "El más vendido", featured_name: "Modelo Guanacaste",
       featured_desc: "Un diseño funcional y elegante, con escalera de ingreso y banca integrada de fábrica.",
       featured_specs: "Profundidad 1.22 m · Color blanco · Resistente al cloro y la sal",
       featured_includes_title: "Incluye todo", featured_cta: "Cotizar este modelo",
@@ -1414,7 +1418,8 @@
       hero_stat1_unit: "hours", hero_stat1_label: "installation",
       hero_stat2_unit: "years", hero_stat2_label: "structural warranty",
       hero_guarantee_note: "Warranty scope and conditions available on request.",
-      featured_eyebrow: "Main model", featured_name: "Guanacaste Model",
+      best_seller: "Best seller",
+      featured_eyebrow: "Our best seller", featured_name: "Guanacaste Model",
       featured_desc: "A functional, elegant design with built-in entry steps and bench.",
       featured_specs: "1.22 m depth · White color · Resistant to chlorine and salt",
       featured_includes_title: "Everything included", featured_cta: "Get a quote for this model",
@@ -1487,9 +1492,10 @@
 
   function renderDynamic(l){
     modelGrid.innerHTML = MODELS.map(m => `
-      <article class="model-card">
+      <article class="model-card${m.best ? ' is-best' : ''}">
         <div class="model-swatch">
           ${m.photo ? `<img src="${m.photo}" alt="${T[l].model_prefix} ${m.province}" loading="lazy" />` : waveSwatchSVG(m.waveColor)}
+          ${m.best ? `<span class="model-badge best">★ ${T[l].best_seller}</span>` : ''}
         </div>
         <div class="model-body">
           <h3>${T[l].model_prefix} ${m.province}</h3>
