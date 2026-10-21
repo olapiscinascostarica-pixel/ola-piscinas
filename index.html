@@ -639,6 +639,21 @@
     font-size: 0.82rem;
     font-weight: 600;
   }
+  #galleryGrid { grid-template-columns: repeat(3, 1fr); }
+  #galleryGrid .gallery-tile, .obras-grid .gallery-tile { aspect-ratio: 4/5; }
+  .obras-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .obras-videos { display: grid; grid-template-columns: repeat(2, minmax(0, 300px)); gap: 18px; justify-content: center; margin-top: 18px; }
+  .video-tile { aspect-ratio: 9/16; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #000; }
+  .video-tile video { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .obras-note { margin: 22px 0 0; font-size: 0.85rem; color: var(--text-soft); text-align: center; }
+  @media (max-width: 720px) {
+    #galleryGrid, .obras-grid, .obras-videos {
+      display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 78%;
+      overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding-bottom: 8px; justify-content: start;
+    }
+    #galleryGrid > *, .obras-grid > *, .obras-videos > * { scroll-snap-align: center; }
+    .obras-videos { grid-auto-columns: 62%; }
+  }
   /* ---------- CTA band ---------- */
   .cta-band {
     background: var(--terracota);
@@ -938,6 +953,20 @@
     </div>
   </section>
 
+  <!-- OBRAS -->
+  <section id="obras" class="section-alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="obras_eyebrow">Obras</span>
+        <h2 data-i18n="obras_title">Piscinas ya instaladas</h2>
+        <p data-i18n="obras_subtitle">Del terreno a la piscina lista, en jardines reales.</p>
+      </div>
+      <div class="obras-grid" id="obrasGrid"></div>
+      <div class="obras-videos" id="obrasVideos"></div>
+      <p class="obras-note" data-i18n="obras_note">Color estándar: blanco. También fabricamos en otros colores, como los de las fotos, que se cotizan aparte.</p>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section id="faq">
     <div class="wrap">
@@ -1211,10 +1240,19 @@
   ];
 
   const GALLERY_IMAGES = [
-    { label: { es: "Modelo Guanacaste instalado", en: "Guanacaste model installed" }, photo: "img/modelo-ax106.jpg" },
-    { label: { es: "Planta de fabricación", en: "Manufacturing plant" }, photo: "img/fabrica-planta.jpg" },
-    { label: { es: "Detalle del casco de fibra de vidrio", en: "Fiberglass shell detail" }, photo: "img/fabrica-cascaron.jpg" },
-    { label: { es: "Acabado interior antes de instalar", en: "Interior finish before installation" }, photo: "img/fabrica-interior.jpg" }
+    { label: { es: "Piscina terminada en la planta, lista para salir", en: "Finished pool at the plant, ready to ship" }, photo: "img/fabrica-galpon.jpg" },
+    { label: { es: "Acabado en otro color: crema", en: "Alternative finish: cream" }, photo: "img/fabrica-crema.jpg" },
+    { label: { es: "Traslado e izado con grúa", en: "Transport and crane lift" }, photo: "img/fabrica-grua.jpg" }
+  ];
+
+  const OBRAS_PHOTOS = [
+    { label: { es: "Piscina en el hueco, lista para conectar", en: "Pool set in the excavation, ready to connect" }, photo: "img/obra-excavacion.jpg" },
+    { label: { es: "Instalada y con agua", en: "Installed and filled" }, photo: "img/obra-terminada.jpg" },
+    { label: { es: "Jardín terminado", en: "Finished garden" }, photo: "img/obra-jardin.jpg" }
+  ];
+  const OBRAS_VIDEOS = [
+    { label: { es: "Piscina instalada en jardín tropical", en: "Pool installed in a tropical garden" }, src: "video/obra-jardin.mp4" },
+    { label: { es: "Piscina con iluminación LED de noche", en: "Pool with LED lighting at night" }, src: "video/obra-luces-led.mp4" }
   ];
 
   const FAQ = [
@@ -1358,6 +1396,9 @@
       form_error: "No se pudo enviar. Escribinos directo al",
       footer_desc: "Piscinas de fibra de vidrio hechas para el clima y el estilo de vida de Costa Rica.",
       footer_site_col: "Sitio", footer_contact_col: "Contacto", footer_copyright: "Ola Piscinas · Costa Rica",
+      obras_eyebrow: "Obras", obras_title: "Piscinas ya instaladas",
+      obras_subtitle: "Del terreno a la piscina lista, en jardines reales.",
+      obras_note: "Color estándar: blanco. También fabricamos en otros colores, como los de las fotos, que se cotizan aparte.",
       legal_notice: "Aviso legal", legal_privacy: "Política de privacidad", legal_cookies: "Aviso de cookies",
       form_consent: "Al enviar aceptás nuestra",
       cookie_text: "Usamos cookies de análisis y publicidad para mejorar el sitio y medir nuestros anuncios.",
@@ -1407,6 +1448,9 @@
       form_error: "Could not send. Please write to us directly at",
       footer_desc: "Fiberglass pools built for Costa Rica's climate and lifestyle.",
       footer_site_col: "Site", footer_contact_col: "Contact", footer_copyright: "Ola Piscinas · Costa Rica",
+      obras_eyebrow: "Our work", obras_title: "Pools already installed",
+      obras_subtitle: "From bare ground to a finished pool, in real gardens.",
+      obras_note: "Standard color: white. We also build in other colors, like those in the photos, quoted separately.",
       legal_notice: "Legal notice", legal_privacy: "Privacy policy", legal_cookies: "Cookie notice",
       form_consent: "By submitting you accept our",
       cookie_text: "We use analytics and advertising cookies to improve the site and measure our ads.",
@@ -1482,6 +1526,16 @@
         ${g.photo ? `<img src="${g.photo}" alt="${g.label[l]}" loading="lazy" />` : galleryTileSVG(g.color)}
         <span class="gallery-cap">${g.label[l]}</span>
       </div>
+    `).join('');
+
+    document.getElementById('obrasGrid').innerHTML = OBRAS_PHOTOS.map(g => `
+      <div class="gallery-tile">
+        <img src="${g.photo}" alt="${g.label[l]}" loading="lazy" />
+        <span class="gallery-cap">${g.label[l]}</span>
+      </div>
+    `).join('');
+    document.getElementById('obrasVideos').innerHTML = OBRAS_VIDEOS.map(v => `
+      <div class="video-tile"><video src="${v.src}" controls playsinline preload="metadata" aria-label="${v.label[l]}"></video></div>
     `).join('');
 
     faqList.innerHTML = FAQ.map(f => `
