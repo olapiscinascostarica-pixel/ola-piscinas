@@ -1481,19 +1481,29 @@
   }
 
   // Reproduce los videos en silencio al verlos y los pausa al salir de pantalla
-  let videoObserver = null;
+  let videoTick = false;
+  function checkVideos(){
+    videoTick = false;
+    document.querySelectorAll('.video-tile video').forEach(v => {
+      const r = v.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const visible = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+      const inView = r.height > 0 && visible / Math.min(r.height, vh) >= 0.6;
+      if (inView && v.paused && !v.dataset.userPaused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+      else if (!inView) { delete v.dataset.userPaused; if (!v.paused) { v.dataset.autoPause = '1'; v.pause(); } }
+    });
+  }
+  function queueVideoCheck(){ if (!videoTick) { videoTick = true; requestAnimationFrame(checkVideos); } }
+  window.addEventListener('scroll', queueVideoCheck, { passive: true });
+  window.addEventListener('resize', queueVideoCheck);
   function autoplayVideos(){
-    const vids = document.querySelectorAll('.video-tile video');
-    if (!('IntersectionObserver' in window)) return;
-    if (videoObserver) videoObserver.disconnect();
-    videoObserver = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        const v = en.target;
-        if (en.isIntersecting) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
-        else v.pause();
+    document.querySelectorAll('.video-tile video').forEach(v => {
+      v.addEventListener('pause', () => {
+        if (v.dataset.autoPause) delete v.dataset.autoPause;
+        else if (!v.ended) v.dataset.userPaused = '1';
       });
-    }, { threshold: 0.5 });
-    vids.forEach(v => videoObserver.observe(v));
+    });
+    queueVideoCheck();
   }
 
   const modelGrid = document.getElementById('modelGrid');
