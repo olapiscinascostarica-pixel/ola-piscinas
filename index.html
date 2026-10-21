@@ -1480,6 +1480,22 @@
     </svg>`;
   }
 
+  // Reproduce los videos en silencio al verlos y los pausa al salir de pantalla
+  let videoObserver = null;
+  function autoplayVideos(){
+    const vids = document.querySelectorAll('.video-tile video');
+    if (!('IntersectionObserver' in window)) return;
+    if (videoObserver) videoObserver.disconnect();
+    videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        const v = en.target;
+        if (en.isIntersecting) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.5 });
+    vids.forEach(v => videoObserver.observe(v));
+  }
+
   const modelGrid = document.getElementById('modelGrid');
   const modeloSelect = document.getElementById('modeloSelect');
   const processList = document.getElementById('processList');
@@ -1541,8 +1557,9 @@
       </div>
     `).join('');
     document.getElementById('obrasVideos').innerHTML = OBRAS_VIDEOS.map(v => `
-      <div class="video-tile"><video src="${v.src}" controls playsinline preload="metadata" aria-label="${v.label[l]}"></video></div>
+      <div class="video-tile"><video src="${v.src}" controls muted loop playsinline preload="metadata" aria-label="${v.label[l]}"></video></div>
     `).join('');
+    autoplayVideos();
 
     faqList.innerHTML = FAQ.map(f => `
       <details class="faq-item">
