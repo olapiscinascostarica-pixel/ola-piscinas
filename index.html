@@ -1493,7 +1493,7 @@
       else if (!inView) { delete v.dataset.userPaused; if (!v.paused) { v.dataset.autoPause = '1'; v.pause(); } }
     });
   }
-  function queueVideoCheck(){ if (!videoTick) { videoTick = true; requestAnimationFrame(checkVideos); } }
+  function queueVideoCheck(){ if (!videoTick) { videoTick = true; setTimeout(checkVideos, 120); } }
   window.addEventListener('scroll', queueVideoCheck, { passive: true });
   window.addEventListener('resize', queueVideoCheck);
   function autoplayVideos(){
